@@ -33,6 +33,11 @@ print(spark)
 
 # COMMAND ----------
 
+for key, val in spark.sparkContext._conf.getAll():
+  print(key, val)
+
+# COMMAND ----------
+
 df = spark.createDataFrame([(0, 'Hello,'), (1, 'world!')], schema=('index', 'text'))
 df.orderBy('index').show()
 
