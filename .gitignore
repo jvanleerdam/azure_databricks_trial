@@ -1,0 +1,19 @@
+# editors and IDEs
+*.swp
+*.*~
+.idea
+
+# (I)Python
+*.pyc
+/**/.ipynb_checkpoints
+
+# log and data files
+*.log
+*.bak
+*.dat
+
+# archives
+*.tar
+*.gz
+*.bz2
+*.zip
