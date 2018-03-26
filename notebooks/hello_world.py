@@ -33,5 +33,10 @@ print(spark)
 
 # COMMAND ----------
 
-df = spark.createDataFrame([(0, 'Hello'), (1, ','), (2, 'world'), (3, '!')], schema=('index', 'text'))
+df = spark.createDataFrame([(0, 'Hello,'), (1, 'world!')], schema=('index', 'text'))
 df.orderBy('index').show()
+
+# COMMAND ----------
+
+from pyspark.sql.functions import collect_list
+print(' '.join(r['text'] for r in df.orderBy('index').select('text').collect()))
