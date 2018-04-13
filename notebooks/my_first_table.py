@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ## SQL table
+# MAGIC %md ## SQL
 
 # COMMAND ----------
 
@@ -36,6 +36,14 @@ df.show(10)
 
 # COMMAND ----------
 
+spark.catalog.listDatabases()
+
+# COMMAND ----------
+
+spark.catalog.listTables()
+
+# COMMAND ----------
+
 tab = spark.read.table('demo_csv')
 print(tab.schema)
 
@@ -46,3 +54,31 @@ tab.count()
 # COMMAND ----------
 
 tab.show(10)
+
+# COMMAND ----------
+
+tab.write.saveAsTable('demo_orc', format='orc', mode='overwrite')
+
+# COMMAND ----------
+
+# MAGIC %sql describe formatted demo_orc
+
+# COMMAND ----------
+
+# MAGIC %md ## Custom database location
+
+# COMMAND ----------
+
+dbutils.fs.mkdirs('/user/jleerdam/warehouse')
+
+# COMMAND ----------
+
+# MAGIC %sql create database if not exists test location '/user/jleerdam/warehouse/test.db'
+
+# COMMAND ----------
+
+tab.write.saveAsTable('test.demo_orc', format='orc', mode='overwrite')
+
+# COMMAND ----------
+
+dbutils.fs.ls('/user/jleerdam/warehouse/test.db/demo_orc')
